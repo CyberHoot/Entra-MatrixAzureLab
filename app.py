@@ -26,7 +26,7 @@ def _build_auth_url(state):
     return _build_msal_app().get_authorization_request_url(
         scopes=SCOPE,
         state=state,
-        redirect_uri=url_for("authorized", _external=True),
+        redirect_uri=url_for("authorized", _external=True, _scheme="https"),
         prompt="select_account"
     )
 
