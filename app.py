@@ -149,7 +149,7 @@ def authorized():
     result = _build_msal_app().acquire_token_by_authorization_code(
         code,
         scopes=SCOPE,
-        redirect_uri=url_for("authorized", _external=True),
+        redirect_uri=url_for("authorized", _external=True, _scheme="https"),
     )
     if "access_token" not in result:
         return f"Token failure: {result.get('error_description') or result}", 400
@@ -180,7 +180,7 @@ def claims():
 def logout():
     session.clear()
     # Entra logout (optional but nice for clean demos)
-    post_logout = url_for("index", _external=True)
+    post_logout = url_for("index", _external=True, _scheme="https")
     return redirect(f"{AUTHORITY}/oauth2/v2.0/logout?post_logout_redirect_uri={post_logout}")
 
 if __name__ == "__main__":
